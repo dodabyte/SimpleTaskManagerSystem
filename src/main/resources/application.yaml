@@ -1,0 +1,39 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: SimpleTaskManagerSystem
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/simple-task-manager-system-db
+    username: doda
+    password: doda
+    hikari:
+      schema: ${my.db.schemaName}
+      idle-timeout: 120000
+      max-lifetime: 300000
+
+  jpa:
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        default_schema: ${my.db.schemaName}
+
+  liquibase:
+    enabled: true
+    default-schema: ${my.db.schemaName}
+
+my:
+  db:
+    schemaName: taskserviceapp
+
+token:
+  signing:
+    key: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  simple-task-manager-system-app:
+    build: .
+    ports:
+      - "9001:9001"
+    depends_on:
+      - simple-task-manager-system-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://simple-task-manager-system-db:5432/simple-task-manager-system-db
+      - SPRING_DATASOURCE_USERNAME=doda
+      - SPRING_DATASOURCE_PASSWORD=doda
+
+  simple-task-manager-system-db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: doda
+      POSTGRES_PASSWORD: doda
+      POSTGRES_DB: simple-task-manager-system-db
+    volumes:
+      - ./preinit/:/docker-entrypoint-initdb.d/
+      - simple-task-manager-system-db-data:/var/lib/postgresql/data
+
+volumes:
+  simple-task-manager-system-db-data:
